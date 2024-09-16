@@ -15,7 +15,7 @@ const isPublicApiRoute = createRouteMatcher([
 export default clerkMiddleware((auth, req) => {
     const {userId} = auth();
     const currentUrl = new URL(req.url)
-     const isAccessingDashboard = currentUrl.pathname === "/home"
+    //  const isAccessingDashboard = currentUrl.pathname === "/home"
      const isApiRequest = currentUrl.pathname.startsWith("/api")
 
      // If user is logged in and accessing a public route but not the dashboard
