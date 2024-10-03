@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, Button, Card, CardBody, CardFooter, Image, Tabs, Tab } from "@nextui-org/react"
-import Menu from '~/components/Navbar'
+import Menu from '~/components/navbar'
 import { FaSearch, FaGraduationCap, FaBriefcase, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import {
   Carousel,

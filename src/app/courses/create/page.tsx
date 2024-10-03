@@ -22,7 +22,7 @@ const CourseSchema = z.object({
   name: z.string().min(1, { message: "Course name is required" }),
   description: z.string().min(1, { message: "Course description is required" }),
   price: z.number().min(1, { message: "Course price is required" }),
-  thumbnail: z.string().min(1, { message: "Course image is required" }),
+  // thumbnail: z.string().min(1, { message: "Course image is required" }),
   language: z.string().min(1, { message: "Course language is required" }),
   category: z.string().min(1, { message: "Course category is required" }),
   tags: z
@@ -35,10 +35,10 @@ export default function CourseForm() {
   //   const [uploading, setUploading] = useState(false)
 
   const form = useForm<z.infer<typeof CourseSchema>>({
-  
+    resolver: zodResolver(CourseSchema)
   });
 
-  function onSubmit(values) {
+  function onSubmit(values: z.infer<typeof CourseSchema>) {
     console.log(values);
     // Handle form submission here
   }
@@ -172,7 +172,7 @@ export default function CourseForm() {
                 <FormItem>
                   <FormLabel>Tags</FormLabel>
                   <FormControl>
-                  <MultiInput label="Tags" maxItems={5} {...field}/>
+                  <MultiInput label="Tags" maxItems={5} value={field.value} onChange={field.onChange}/>
                   </FormControl>
                   
                   <FormMessage>{fieldState.error?.message}</FormMessage>
