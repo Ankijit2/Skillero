@@ -1,0 +1,19 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="#9333ea" />
+
+  <!-- Thicker and more prominent square (book) -->
+  <path d="M22 30 L78 30 L78 70 L22 70 Z" stroke="white" strokeWidth="16" fill="none" />
+  
+  <!-- Thicker horizontal lines in the book -->
+  <path d="M35 45 L65 45 M35 55 L65 55" stroke="white" strokeWidth="16" strokeLinecap="round" />
+  
+  <!-- Smaller top circle for a subtle look -->
+  <circle cx="50" cy="20" r="10" fill="white" /> <!-- Reduced radius from 16 to 8 -->
+
+  <!-- Thicker dashed line below the top circle -->
+  <path d="M50 25 L50 70" stroke="white" strokeWidth="12" strokeDasharray="12 12" />
+  
+  <!-- Larger and thicker curve at the bottom -->
+  <path d="M15 75 Q50 100 85 75" stroke="white" strokeWidth="14" fill="none" />
+</svg>

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function jobs() {
-  return (
-    <div>jobs</div>
-  )
+  return <div>jobs</div>;
 }
 
-export default jobs
+export default jobs;

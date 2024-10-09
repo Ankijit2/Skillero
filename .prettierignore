@@ -1,3 +1,51 @@
 # Ignore artifacts:
 build
 coverage
+# Ignore Node.js and Bun's build folder
+/node_modules
+/bun.lockb
+
+# Ignore Next.js build output
+/.next
+/out
+
+# Ignore Bun build output (if using Bun's bundler)
+/.bun
+
+# Ignore TypeScript build output
+/dist
+/build
+
+# Ignore configuration files and environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Ignore lock files and cache folders
+bun.lockb
+.pnpm-lock.yaml
+.pnp
+.cache
+
+# Ignore miscellaneous files
+*.log
+*.md
+.vscode/
+.idea/
+*.DS_Store
+*.local
+
+# Ignore coverage files
+coverage/
+*.coverage
+
+# Ignore Prettier configuration files
+.prettierrc
+.prettierrc.js
+.prettierrc.json
+.prettierrc.yaml
+.prettierrc.yml
+.prettierignore
+.prettier.config.js

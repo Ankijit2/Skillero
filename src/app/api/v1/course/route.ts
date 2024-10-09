@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth,currentUser } from "@clerk/nextjs/server";
-import prisma from "~/lib/client";
-import { CourseSchema } from "~/types/courses";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
+import prisma from '~/lib/client';
+import { CourseSchema } from '~/types/courses';
 
 export async function GET(request: NextRequest) {
   const { userId } = auth();
-  const course_id = request.nextUrl.searchParams.get("course_id");
+  const course_id = request.nextUrl.searchParams.get('course_id');
 
   if (!userId || !course_id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const course = await prisma.courses.findMany({
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
   });
 
   if (!course) {
-    return NextResponse.json({ error: "Course not found" }, { status: 404 });
+    return NextResponse.json({ error: 'Course not found' }, { status: 404 });
   }
 
   return NextResponse.json({ course });
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
   const { data } = await request.json();
 
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const course = CourseSchema.safeParse(data);
@@ -58,15 +58,15 @@ export async function POST(request: NextRequest) {
       ...courseData,
       created_at: new Date(),
       author_id: userId,
-      author_name: user?.fullName||"Unknown",
+      author_name: user?.fullName || 'Unknown',
     },
-  })
+  });
 
-  if(!newCourse) {
-    return NextResponse.json({ error: "Failed to create course" }, { status: 503 });
+  if (!newCourse) {
+    return NextResponse.json(
+      { error: 'Failed to create course' },
+      { status: 503 }
+    );
   }
   return NextResponse.json({ course: newCourse });
 }
-
-
-
