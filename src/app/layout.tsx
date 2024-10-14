@@ -5,6 +5,8 @@ import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { NextUIProvider } from '@nextui-org/react';
 import Menu from '~/components/navbar';
+import QueryProvider from '~/lib/query-client';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: 'Skillero',
@@ -22,12 +24,15 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <ClerkProvider>
+      <QueryProvider>
         <body>
           <NextUIProvider>
             <Menu/>
             {children}
+            <Toaster />
             </NextUIProvider>
         </body>
+        </QueryProvider>
       </ClerkProvider>
     </html>
   );

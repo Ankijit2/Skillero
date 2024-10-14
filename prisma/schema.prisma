@@ -18,19 +18,18 @@ model Courses{
   name         String
   description String
   created_at  DateTime
-  updated_at  DateTime?
+  updated_at  DateTime
   sections    Section[]  @relation("course_sections")
   price       Int
-  author_name String
-  author_id    String  @db.ObjectId
-  thumbnail    String
+  author_email String
+  author_id    String  
+  thumbnail    String?
   language     String
-  category     String
   rating       Float   @default(0.0)
   enrollments_count Int @default(0)
   is_published Boolean @default(false)
   tags         String[]
-  total_duration     String
+  total_duration  Float @default(0)
 
  
 

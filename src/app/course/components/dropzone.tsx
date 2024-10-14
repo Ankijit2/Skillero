@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react'
 import { useDropzone, FileRejection } from 'react-dropzone'
 import { Button, Card, CardBody } from "@nextui-org/react"
+import { AxiosProgressEvent } from 'axios'
 import { Upload, X } from 'lucide-react'
 import Image from 'next/image'
 import toast, { Toaster } from 'react-hot-toast'
@@ -42,7 +43,7 @@ export default function CourseImageUploader() {
             headers: {
               'Content-Type': uploadedFile.type,
             },
-            onUploadProgress: (progressEvent: ProgressEvent) => {
+            onUploadProgress: (progressEvent: AxiosProgressEvent) => {
               if (progressEvent.total) {
                 const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 setUploadProgress(progress); // Update the upload progress
@@ -54,7 +55,7 @@ export default function CourseImageUploader() {
           await axios.put(presignedUrl, uploadedFile, options);
 
           // Construct the CloudFront URL
-          const cloudFrontUrl = `${process.env.PUBLIC_BASE_URL}/${uploadedFile.name}`;
+          const cloudFrontUrl = `https://d13cncrcqfgi8k.cloudfront.net/${uploadedFile.name}`;
           setPreview(cloudFrontUrl); // Set preview to CloudFront URL
           setUploadProgress(null); // Reset the progress once upload is complete
           toast.success('File uploaded successfully!');
