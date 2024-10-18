@@ -25,7 +25,7 @@ export const CourseSchema = z.object({
 
   
 
-  tags: z
+  topics_covered: z
     .array(z.string().min(1, { message: 'Course tag cannot be empty' }))
     .min(1, { message: 'At least one course tag is required' })
     .max(10, { message: 'You can add up to 10 tags only' }),

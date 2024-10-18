@@ -4,37 +4,30 @@ import prisma from '~/lib/prisma-client';
 import { CourseSchema } from '~/types/courses';
 
 export async function GET(request: NextRequest) {
-  const { userId } = auth();
-  const course_id = request.nextUrl.searchParams.get('course_id');
+  try {
+    const { userId } = auth();
 
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
+    const [createdCourses, paidCourses] = await Promise.all([
+      prisma.courses.findMany({ where: { author_id: userId } }),
+      prisma.purchasedDetails.findMany({ where: { user_id: userId } }),
+    ]);
 
-  const course = await prisma.courses.findMany({
-    where: {
-      ...(course_id && { id: course_id }),
-    },
-    include: course_id
-      ? {
-          sections: {
-            include: {
-              videos: {
-                include: {
-                  resources: true,
-                },
-              },
-            },
-          },
-        }
-      : {},
-  });
-
-  if (!course) {
-    return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+    return NextResponse.json({
+      CreatedCourses: createdCourses,
+      PaidCourses: paidCourses,
+    });
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch courses. Please try again later.' },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ course });
 }
-
 export async function POST(request: NextRequest) {
   try {
     const { userId } = auth();

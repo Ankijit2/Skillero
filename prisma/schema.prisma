@@ -13,13 +13,15 @@ datasource db {
   url      = env("MONGODB_URL")
 }
 
+
+//courses
 model Courses{
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description String
   created_at  DateTime
   updated_at  DateTime
-  sections    Section[]  @relation("course_sections")
+  sections    Section[]  
   price       Int
   author_email String
   author_id    String  
@@ -28,24 +30,25 @@ model Courses{
   rating       Float   @default(0.0)
   enrollments_count Int @default(0)
   is_published Boolean @default(false)
-  tags         String[]
+  topics_covered String[]
   total_duration  Float @default(0)
-
+  PurchasedDetails PurchasedDetails[]
  
 
   @@index([name])
 
+  
 }
 
 model Section {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   course_id    String  @db.ObjectId
-  course       Courses   @relation("course_sections", fields: [course_id], references: [id])
+  course       Courses   @relation( fields: [course_id], references: [id],onDelete: Cascade, onUpdate: Cascade)
   created_at  DateTime
   updated_at  DateTime
   section_duration String
-  videos       Video[] @relation("section_videos")
+  videos       Video[]
   order        Int
 }
 
@@ -56,15 +59,15 @@ model Video {
   url           String
   course_id     String        @db.ObjectId
   section_id    String        @db.ObjectId
-  section       Section     @relation("section_videos", fields: [section_id], references: [id])
+  section       Section     @relation( fields: [section_id], references: [id] ,onDelete: Cascade, onUpdate: Cascade)
   created_at    DateTime
-  resources     Resource[]  @relation("video_resources")
+  resources     Resource[] 
 }
 
 model Resource {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   video_id      String        @db.ObjectId
-  video         Video       @relation("video_resources", fields: [video_id], references: [id])
+  video         Video       @relation(fields: [video_id], references: [id],onDelete: Cascade, onUpdate: Cascade)
   name         String
   url           String
   type          ResourceType
@@ -75,5 +78,25 @@ enum ResourceType {
   LINK
   AUDIO
   OTHER
+}
+
+
+
+//purchased course 
+
+model PurchasedDetails {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id       String    @db.ObjectId
+  course_id     String    @db.ObjectId
+  purchase_date DateTime  @default(now())
+  payment_status PaymentStatus @default(PENDING)
+  course        Courses   @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  user_email    String    
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  FAILED
 }
 

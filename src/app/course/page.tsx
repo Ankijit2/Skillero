@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Tabs, Tab, Card, CardBody, CardFooter, Button, Image } from "@nextui-org/react"
 import { FiBook, FiEdit, FiDollarSign, FiClock, FiStar, FiPlus } from 'react-icons/fi'
 import CourseForm from './components/course-modal'
+import Coursecard from './components/course-card'
 
 const purchasedCourses = [
   { id: 1, name: "Advanced Web Development", price: 59.99, cover: "/placeholder.svg?height=200&width=300", rating: 4.8, duration: "20 hours" },
@@ -82,63 +83,13 @@ export default function SkilleroCoursePageA() {
           {selectedTab === "purchased" ? (
             purchasedCourses.map((course) => (
               <motion.div key={course.id} variants={itemVariants}>
-                <Card className="h-full">
-                  <CardBody className="p-0">
-                    <Image
-                      src={course.cover}
-                      alt={course.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-4">
-                      <h2 className="text-xl font-semibold mb-2">{course.name}</h2>
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center">
-                          <FiStar className="text-yellow-400 mr-1" />
-                          <span>{course.rating}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <FiClock className="mr-1" />
-                          <span>{course.duration}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                  <CardFooter className="flex justify-between items-center">
-                    <span className="text-lg font-bold">${course.price}</span>
-                    <Button color="primary">Continue Learning</Button>
-                  </CardFooter>
-                </Card>
+               <Coursecard course={course}/>
               </motion.div>
             ))
           ) : (
             createdCourses.map((course) => (
               <motion.div key={course.id} variants={itemVariants}>
-                <Card className="h-full">
-                  <CardBody className="p-0">
-                    <Image
-                      src={course.cover}
-                      alt={course.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-4">
-                      <h2 className="text-xl font-semibold mb-2">{course.name}</h2>
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center">
-                          <FiBook className="mr-1" />
-                          <span>{course.students} students</span>
-                        </div>
-                        <div className="flex items-center">
-                          <FiDollarSign className="mr-1" />
-                          <span>${course.revenue.toLocaleString()}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardBody>
-                  <CardFooter className="flex justify-between items-center">
-                    <span className="text-lg font-bold">${course.price}</span>
-                    <Button color="secondary">Edit Course</Button>
-                  </CardFooter>
-                </Card>
+               
               </motion.div>
             ))
           )}

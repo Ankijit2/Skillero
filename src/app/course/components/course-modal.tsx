@@ -137,7 +137,7 @@ export default function CourseForm() {
 
             <FormField
               control={form.control}
-              name="tags"
+              name="topics_covered"
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel className="text-lg font-semibold">Tags</FormLabel>
